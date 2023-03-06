@@ -38,4 +38,8 @@ public class EmployeeService {
 		entity.setEmail(obj.getEmail());
 		entity.setSalary(obj.getSalary());
 	}
+
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
 }

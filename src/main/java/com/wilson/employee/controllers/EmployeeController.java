@@ -43,5 +43,11 @@ public class EmployeeController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(employeeModel);
 	}
 	
-		
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<EmployeeModel> updateEmployee(@PathVariable Long id, 
+			@RequestBody EmployeeModel obj){
+		obj = service.update(id, obj);
+		return ResponseEntity.ok().body(obj);
+	}
+	
 }

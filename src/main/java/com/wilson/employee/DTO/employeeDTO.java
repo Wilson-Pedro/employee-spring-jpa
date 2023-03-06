@@ -1,16 +1,15 @@
 package com.wilson.employee.DTO;
 
-public class employeeDTO {
+public class EmployeeDTO {
 
 	private String name;
 	private String email;
 	private Double salary;
 	
-	public employeeDTO() {
+	public EmployeeDTO() {
 	}
 
-	public employeeDTO(String name, String email, Double salary) {
-		super();
+	public EmployeeDTO(String name, String email, Double salary) {
 		this.name = name;
 		this.email = email;
 		this.salary = salary;

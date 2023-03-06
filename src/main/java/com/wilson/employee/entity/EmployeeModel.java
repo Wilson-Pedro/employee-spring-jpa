@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_employee")
-public class employeeEntity implements Serializable{
+public class EmployeeModel implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -20,10 +20,10 @@ public class employeeEntity implements Serializable{
 	private String email;
 	private Double salary;
 	
-	public employeeEntity() {
+	public EmployeeModel() {
 	}
 
-	public employeeEntity(Long id, String name, String email, Double salary) {
+	public EmployeeModel(Long id, String name, String email, Double salary) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -83,7 +83,7 @@ public class employeeEntity implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		employeeEntity other = (employeeEntity) obj;
+		EmployeeModel other = (EmployeeModel) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

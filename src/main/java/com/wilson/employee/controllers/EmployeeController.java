@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +25,12 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService service;
 	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<EmployeeModel> findById(@PathVariable Long id){
+		EmployeeModel employeeModel = service.findById(id);
+		return ResponseEntity.ok().body(employeeModel);
+	}
+			
 	@GetMapping
 	public ResponseEntity<List<EmployeeModel>> findAll(){
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
@@ -34,4 +42,6 @@ public class EmployeeController {
 		BeanUtils.copyProperties(employeeDTO, employeeModel);
 		return ResponseEntity.status(HttpStatus.CREATED).body(employeeModel);
 	}
+	
+		
 }

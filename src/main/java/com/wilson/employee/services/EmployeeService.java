@@ -16,14 +16,18 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeRepository repository;
+	
+	@Transactional
+	public EmployeeModel save(EmployeeModel employeeModel) {
+		return repository.save(employeeModel);
+	}
 
 	public List<EmployeeModel> findAll() {
 		return repository.findAll();
 	}
 
-	public EmployeeModel findById(Long id) {
-		Optional<EmployeeModel> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new RuntimeException());
+	public Optional<EmployeeModel> findById(Long id) {
+		return repository.findById(id);
 	}
 
 	@Transactional

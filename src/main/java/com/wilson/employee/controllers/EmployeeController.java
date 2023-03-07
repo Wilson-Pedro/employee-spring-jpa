@@ -1,6 +1,7 @@
 package com.wilson.employee.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +27,25 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService service;
 	
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<EmployeeModel> findById(@PathVariable Long id){
-		EmployeeModel employeeModel = service.findById(id);
-		return ResponseEntity.ok().body(employeeModel);
-	}
-			
 	@GetMapping
 	public ResponseEntity<List<EmployeeModel>> findAll(){
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
+	}
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Object> findById(@PathVariable Long id){
+		Optional<EmployeeModel> obj = service.findById(id);
+		if(!obj.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found!");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(obj.get());
 	}
 	
 	@PostMapping
 	public ResponseEntity<Object> saveEmployee(@RequestBody EmployeeDTO employeeDTO){
 		var employeeModel = new EmployeeModel();
 		BeanUtils.copyProperties(employeeDTO, employeeModel);
-		return ResponseEntity.status(HttpStatus.CREATED).body(employeeModel);
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(employeeModel));
 	}
 	
 	@PutMapping(value = "/{id}")

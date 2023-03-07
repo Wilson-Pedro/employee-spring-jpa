@@ -1,9 +1,14 @@
 package com.wilson.employee.DTO;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class EmployeeDTO {
 
+	@NotBlank
 	private String name;
+	@NotBlank
 	private String email;
+	@NotBlank
 	private Double salary;
 	
 	public EmployeeDTO() {

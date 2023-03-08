@@ -21,6 +21,10 @@ public class EmployeeService {
 	public EmployeeModel save(EmployeeModel employeeModel) {
 		return repository.save(employeeModel);
 	}
+	
+	public boolean existsByEmail(String email) {
+		return repository.existsByEmail(email);
+	}
 
 	public List<EmployeeModel> findAll() {
 		return repository.findAll();

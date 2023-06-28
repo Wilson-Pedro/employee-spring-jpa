@@ -1,14 +1,17 @@
 package com.wilson.employee.DTO;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class EmployeeDTO {
 
-	@NotBlank
+	@NotBlank(message = "name is mandatory")
 	private String name;
-	@NotBlank
+	
+	@NotBlank(message = "email is mandatory")
 	private String email;
-	@NotBlank
+	
+	@NotNull(message = "salary cannot be null")
 	private Double salary;
 	
 	public EmployeeDTO() {

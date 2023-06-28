@@ -7,7 +7,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,14 +14,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wilson.employee.DTO.EmployeeDTO;
 import com.wilson.employee.entity.EmployeeModel;
 import com.wilson.employee.services.EmployeeService;
 
+import jakarta.validation.Valid;
+
 @RestController
-@CrossOrigin(origins="*", maxAge=3600)
 @RequestMapping(value = "/employeers")
 public class EmployeeController {
 
@@ -30,6 +31,7 @@ public class EmployeeController {
 	private EmployeeService service;
 	
 	@GetMapping
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<List<EmployeeModel>> findAll(){
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 	}
@@ -44,7 +46,7 @@ public class EmployeeController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Object> saveEmployee(@RequestBody EmployeeDTO employeeDTO){
+	public ResponseEntity<Object> saveEmployee(@Valid @RequestBody EmployeeDTO employeeDTO){
 		if(service.existsByEmail(employeeDTO.getEmail())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Email is already in use!");
 		}
@@ -54,7 +56,8 @@ public class EmployeeController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<EmployeeModel> updateEmployee(@PathVariable Long id, 
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public ResponseEntity<EmployeeModel> updateEmployee(@Valid @PathVariable Long id, 
 			@RequestBody EmployeeModel obj){
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);

@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,10 @@ import com.wilson.employee.services.EmployeeService;
 import jakarta.validation.Valid;
 
 @RestController
+<<<<<<< HEAD
+=======
+@CrossOrigin(origins="*", maxAge=3600)
+>>>>>>> f301d7ecc20477d18acf51b18a427a7e6e0458c7
 @RequestMapping(value = "/employeers")
 public class EmployeeController {
 
@@ -46,7 +51,11 @@ public class EmployeeController {
 	}
 	
 	@PostMapping
+<<<<<<< HEAD
 	public ResponseEntity<Object> saveEmployee(@Valid @RequestBody EmployeeDTO employeeDTO){
+=======
+	public ResponseEntity<Object> saveEmployee(@RequestBody EmployeeDTO employeeDTO){
+>>>>>>> f301d7ecc20477d18acf51b18a427a7e6e0458c7
 		if(service.existsByEmail(employeeDTO.getEmail())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Email is already in use!");
 		}
